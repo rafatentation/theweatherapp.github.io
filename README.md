@@ -1,70 +1,63 @@
-# Getting Started with Create React App
+Sizler için Hava Durumu uygulaması yaptım.
+İlk olarak Node.JS uygulamasını indirmeniz gerekiyor. Daha sonra "Terminal" kısmına "create-react-app the-weather-api" yazmanız lazım. Böylece React App yükleniyor ve daha sonra terminal kısmına "npm start" yazıyoruz. React uygulamasının tüm dosyları indiriliyor.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+İlk önce "www.weatherapi.com" sitesinde hesab açıyoruz, ordan API Expolorer`de 3 günlük hava durumunu seçtikden sonra API Key`i kopyalıyoruz:
+" function App()
+                        const APP_KEY = "e0af464eeaa245ed9e6232017221912"
+                        let cityinput2=""
+                        const [wheatherdata, setwheatherdata]=useState([])
+                        function citytext() "
 
-## Available Scripts
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Link olarak sitenin linkini yazıyoruz ve böylece tüm şehirlerin 3 günlük hava durumu aktif oluyor:
+ if (value==="") return;
+                            const data=await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${APP_KEY}&q=${value}&days=3&aqi=no&alerts=no`)
+                            const result = await data.json();
+                            setwheatherdata(result.forecast.forecastday)
+                          console.log(result.forecast.forecastday)  
+                          
+                         
+ "src" klasörünün içinde yeni dosya açıyoruz - "weatherresult.js" ve bu kodu yazıyoruz - böylece temprature, icon, tarih aktif oluyor:
+ import React from 'react'
+                                import './wheather.css'
+                                function Wheatherresult({date,mintemp,maxtemp,condition,icon}) {
+                                    return (
+                                    div className="result"
+                                            h2 {date} /h2
+                                            ul
+                                                li><img src={icon} alt=""/> /li>
+                                                li>{condition} /li>
+                                                li>{mintemp} c / {maxtemp} c /li>
+                                            /ul>
+                                        /div>
+                                    )
+                                }
+                                export default Wheatherresult
+                                
+                                
+                                
+ Bu kısımda istediğiniz şehirleri aratarak hava durumuna kolayca ulaşa bilirsiniz. "Search" butonu için kod:
+  div className="search">
+                        input type="text" placeholder="Search a city..." onChange={citytext}/>
+                          button onClick={()=>getdata(cityinput)}>Search</button>      
+                        /div>
+                        div>
+                      {wheatherdata.map(item=>(<Wheather key={item.date} date={item.date} mintemp={item.day.mintemp_c} maxtemp={item.day.maxtemp_c} condition={item.day.condition.text} icon={item.day.condition.icon}/>))}
+                        /div>
+                      
+                      /div>
+                      
+                      
+                      
+ Background olarak internetden aldığım fotoğrafı kullandım:
+  * {
+                            margin: 100%;
+                            padding: 100%;
+                            box-sizing: border-box;
+                            background-image: url(https://cdn.vuetifyjs.com/images/parallax/material2.jpg);
+                           }
+                           
+                           
+                           
+ÖZET - Sizler için Hava Durumu uygulaması yaptım. Buradan tüm ülkelerin şehirlerini bölgelerini yazarak 3 günlük hava durumu göre bilirsiniz. Önemli olan kısım Node JS uygulamasını indirmeniz lazım ve React uygulamasını başlatmak lazım. weatherapi.com sitesinde hesab açmak ve verileri aktarmak için linkleri kullanmanız lazım.                           
+                          
